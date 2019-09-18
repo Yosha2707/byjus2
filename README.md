@@ -26,9 +26,9 @@ This will start application on 4200 port.
 
 ## About Application and Assuptions Made 
 
-1. As project will start you can click login, a login popup will appear . Sign In with Google 
+1. As application will launch we can see login option on header. Login with Google.
 
-2. Visit search tab , here all authenticate jobs are listed . we can filter date on the basis of experience , company name , location and skils.
+2. Visit search tab , here all authenticate jobs are listed . we can filter date on the basis of experience , company name , location and skills.
 
 3. On top it shows the number of jobs found .
 
