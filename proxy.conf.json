@@ -1,0 +1,11 @@
+{
+  "/proxy/*": {
+  "target": "https://nut-case.s3.amazonaws.com/jobs.json",
+  "secure": false,
+  "logLevel": "debug",
+  "changeOrigin": true,
+  "pathRewrite": {
+  "^/proxy": "/"
+  }
+ }
+}
