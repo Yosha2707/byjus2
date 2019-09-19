@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     this.loadListData(null, null, null);
   }
 
+  //removes duplicate value from array 
   getUnique(duplicate: Array < any > ) {
     var result = duplicate.filter(function (item, index, inputArray) {
       return inputArray.indexOf(item) == index && item != ""
@@ -36,16 +37,23 @@ export class HomeComponent implements OnInit {
 
   loadListData(value: string, search_type: string, is_checked: Boolean) {
     this.jobService.getList().subscribe((resp: Response) => {
+      //contains complete response from api 
       this.JobData = resp;
+
+      //removing junk data 
       this.JobData.data = this.JobData.data.filter(e => {
         return e.companyname != "";
       })
-      if(value == null){
+
+
+      if(value == null){ //when page loads 
         var LocationArray = []
         var CompaniesArray = []
         var ExperienceArray = []
         var SkillArray = []
         var TimeStampArray = [];
+
+        //seprate companies name , experience , locations etcc in an array , on which user can filter 
         this.JobData.data.filter(e => {
           return CompaniesArray.push(e.companyname) && LocationArray.push(e.location.split(",")) &&
             ExperienceArray.push(e.experience) && SkillArray.push(e.skills.split(",")) && TimeStampArray.push(formatDate(e.timestamp * 1000 , 'dd-MM-yy', 'en-US'))
@@ -58,8 +66,11 @@ export class HomeComponent implements OnInit {
         this.Experience = this.getUnique(ExperienceArray)
         this.Skills = this.getUnique(SkillArray)
         this.TimeStamp = this.getUnique(TimeStampArray)
-      }else {
+      }else { //when user filter jobs 
+
+        //FilterArray contains all the filter user is applying 
         var record = this.FilterArray
+        
         if (is_checked) {
           record.push({
             search_type: search_type,
@@ -99,7 +110,6 @@ export class HomeComponent implements OnInit {
           }
         }
       }
-      console.log(this.JobData)
       this.PageIndex = 1;
       this.TotalJobs = this.JobData.data.length;
       (error) => console.log(error)
